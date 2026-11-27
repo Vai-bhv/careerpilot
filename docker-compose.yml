@@ -1,0 +1,63 @@
+name: careerpilot
+x-workspace: &workspace
+  build: .
+  image: careerpilot-local:dev
+  user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+  env_file:
+    - path: ${CAREERPILOT_ENV_FILE:-.env}
+      required: false
+  environment: &config
+    DATABASE_URL: postgresql+psycopg://careerpilot:${POSTGRES_PASSWORD:?Set a random alphanumeric POSTGRES_PASSWORD in .env}@db/careerpilot
+    CAREERPILOT_PRIVATE: /workspace/private
+  volumes:
+    - ${CAREERPILOT_VOLUME:-./private}:/workspace/private
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: careerpilot
+      POSTGRES_DB: careerpilot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U careerpilot -d careerpilot"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+  init:
+    <<: *workspace
+    command: ["python","-m","app.cli","init"]
+    depends_on:
+      db:
+        condition: service_healthy
+  api:
+    <<: *workspace
+    ports: ["127.0.0.1:${CAREERPILOT_PORT:-8000}:8000"]
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD","curl","--fail","--silent","http://localhost:8000/health/ready"]
+      interval: 10s
+      timeout: 4s
+      retries: 10
+  dashboard:
+    <<: *workspace
+    environment:
+      <<: *config
+      CAREERPILOT_API_URL: http://api:8000
+    ports: ["127.0.0.1:${CAREERPILOT_DASHBOARD_PORT:-8501}:8501"]
+    command: ["streamlit","run","frontend/dashboard.py","--server.address","0.0.0.0"]
+    depends_on:
+      api:
+        condition: service_healthy
+  worker:
+    <<: *workspace
+    profiles: [scheduler]
+    command: ["python","-m","app.cli","worker"]
+    depends_on:
+      init:
+        condition: service_completed_successfully
+volumes:
+  pgdata:

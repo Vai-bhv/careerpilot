@@ -1,0 +1,8 @@
+From: alerts@example.invalid
+To: alex@example.invalid
+Subject: Job alert in Prague
+Message-ID: <fictional-alert-1@example.invalid>
+Content-Type: text/html; charset=utf-8
+
+<p>Weekly job alert. Lantern North is hiring a Power BI Developer.</p>
+<a href="https://example.invalid/jobs/bi">Read the vacancy</a>

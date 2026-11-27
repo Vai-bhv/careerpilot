@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "careerpilot": {
+      "type": "stdio",
+      "command": "${workspaceFolder}/.venv/bin/python",
+      "args": ["-m", "app.mcp_server"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "CAREERPILOT_API_URL": "http://127.0.0.1:8000",
+        "CAREERPILOT_PRIVATE": "${workspaceFolder}/private"
+      }
+    }
+  }
+}

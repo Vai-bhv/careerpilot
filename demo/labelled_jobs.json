@@ -1,0 +1,551 @@
+[
+  {
+    "label": "strong",
+    "required": [
+      "Power BI",
+      "SQL",
+      "DAX"
+    ],
+    "job": {
+      "source": "demo",
+      "title": "Power BI Developer",
+      "company": "Lantern North",
+      "location": "Prague",
+      "description": "Required: Power BI, SQL and DAX. Preferred: Python. Full-time.",
+      "url": "https://example.invalid/jobs/bi"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "SQL",
+      "Excel"
+    ],
+    "job": {
+      "source": "demo",
+      "title": "Data Analyst",
+      "company": "Paper Tram",
+      "location": "Praha",
+      "description": "Požadujeme: SQL a Excel. Výhodou: Python. Plný úvazek.",
+      "url": "https://example.invalid/jobs/analyst"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "Python",
+      "Airflow",
+      "Spark"
+    ],
+    "job": {
+      "source": "demo",
+      "title": "Data Engineer",
+      "company": "Fictional Rail",
+      "location": "Prague",
+      "description": "Requirements: Python, Airflow and Spark. Preferred: dbt.",
+      "url": "https://example.invalid/jobs/engineer"
+    }
+  },
+  {
+    "label": "poor",
+    "required": [
+      "Java",
+      "Kubernetes",
+      "AWS"
+    ],
+    "job": {
+      "source": "demo",
+      "title": "Backend Infrastructure Lead",
+      "company": "Sample Kiln",
+      "location": "Oslo",
+      "description": "Required: Java, Kubernetes, AWS. On-site only.",
+      "url": "https://example.invalid/jobs/backend"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "Power BI",
+      "SQL"
+    ],
+    "preferred": [
+      "Python"
+    ],
+    "job": {
+      "title": "Junior BI Engineer",
+      "company": "Fictional Workshop 5",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Build operational reports for a tram depot.\nRequirements: Power BI, SQL\nPreferred: Python",
+      "url": "https://example.invalid/jobs/evaluation-5"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "Power BI",
+      "DAX",
+      "Excel"
+    ],
+    "preferred": [
+      "SQL"
+    ],
+    "job": {
+      "title": "Power BI Developer - Finance",
+      "company": "Fictional Workshop 6",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Model monthly revenue for a fictional co-op.\nRequirements: Power BI, DAX, Excel\nPreferred: SQL",
+      "url": "https://example.invalid/jobs/evaluation-6"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "Power BI",
+      "SQL",
+      "Azure"
+    ],
+    "preferred": [
+      "Python"
+    ],
+    "job": {
+      "title": "BI Developer - Cloud",
+      "company": "Fictional Workshop 7",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Move published reports to a managed workspace.\nRequirements: Power BI, SQL, Azure\nPreferred: Python",
+      "url": "https://example.invalid/jobs/evaluation-7"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "Power BI",
+      "DAX"
+    ],
+    "preferred": [
+      "Excel"
+    ],
+    "job": {
+      "title": "Vývojář Power BI",
+      "company": "Fictional Workshop 8",
+      "source": "demo",
+      "location": "Praha",
+      "description": "Připravujte přehledy obsazenosti vozidel.\nPožadujeme: Power BI, DAX\nVýhodou: Excel",
+      "url": "https://example.invalid/jobs/evaluation-8"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "Excel",
+      "SQL"
+    ],
+    "preferred": [
+      "Power BI"
+    ],
+    "job": {
+      "title": "Reporting Analyst - Operations",
+      "company": "Fictional Workshop 9",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Reconcile ticket counts across sites.\nRequirements: Excel, SQL\nPreferred: Power BI",
+      "url": "https://example.invalid/jobs/evaluation-9"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "SQL",
+      "Excel"
+    ],
+    "preferred": [
+      "Python"
+    ],
+    "job": {
+      "title": "Datový analytik",
+      "company": "Fictional Workshop 10",
+      "source": "demo",
+      "location": "Praha",
+      "description": "Zpracovávejte týdenní přehledy zakázek.\nPožadujeme: SQL, Excel\nVýhodou: Python",
+      "url": "https://example.invalid/jobs/evaluation-10"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "SQL",
+      "Python",
+      "R"
+    ],
+    "preferred": [
+      "Tableau"
+    ],
+    "job": {
+      "title": "Data Analyst - Experimentation",
+      "company": "Fictional Workshop 11",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Review experiment results with product teams.\nRequirements: SQL, Python, R\nPreferred: Tableau",
+      "url": "https://example.invalid/jobs/evaluation-11"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "SQL",
+      "Excel",
+      "Tableau"
+    ],
+    "preferred": [
+      "Power BI"
+    ],
+    "job": {
+      "title": "BI Analyst - Merchandising",
+      "company": "Fictional Workshop 12",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Compare inventory adjustments across stores.\nRequirements: SQL, Excel, Tableau\nPreferred: Power BI",
+      "url": "https://example.invalid/jobs/evaluation-12"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "SQL",
+      "dbt",
+      "Snowflake"
+    ],
+    "preferred": [
+      "Python"
+    ],
+    "job": {
+      "title": "Analytics Engineer - Finance",
+      "company": "Fictional Workshop 13",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Create audited finance models.\nRequirements: SQL, dbt, Snowflake\nPreferred: Python",
+      "url": "https://example.invalid/jobs/evaluation-13"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "SQL",
+      "Python",
+      "dbt"
+    ],
+    "preferred": [
+      "Excel"
+    ],
+    "job": {
+      "title": "Analytics Engineer - Warehouse",
+      "company": "Fictional Workshop 14",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Maintain a small transformation pipeline.\nRequirements: SQL, Python, dbt\nPreferred: Excel",
+      "url": "https://example.invalid/jobs/evaluation-14"
+    }
+  },
+  {
+    "label": "poor",
+    "required": [
+      "dbt",
+      "Snowflake",
+      "Databricks"
+    ],
+    "preferred": [
+      "Azure"
+    ],
+    "job": {
+      "title": "Analytics Engineer - Governance",
+      "company": "Fictional Workshop 15",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Own modelling standards across business units.\nRequirements: dbt, Snowflake, Databricks\nPreferred: Azure",
+      "url": "https://example.invalid/jobs/evaluation-15"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "Python",
+      "Spark",
+      "Airflow"
+    ],
+    "preferred": [
+      "SQL"
+    ],
+    "job": {
+      "title": "Data Engineer - Streaming",
+      "company": "Fictional Workshop 16",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Monitor late-arriving events.\nRequirements: Python, Spark, Airflow\nPreferred: SQL",
+      "url": "https://example.invalid/jobs/evaluation-16"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "SQL",
+      "Python",
+      "ETL"
+    ],
+    "preferred": [
+      "Excel"
+    ],
+    "job": {
+      "title": "Data Engineer - SQL Platform",
+      "company": "Fictional Workshop 17",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Support nightly extracts and investigate failures.\nRequirements: SQL, Python, ETL\nPreferred: Excel",
+      "url": "https://example.invalid/jobs/evaluation-17"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "SQL",
+      "Airflow",
+      "Databricks"
+    ],
+    "preferred": [
+      "Python"
+    ],
+    "job": {
+      "title": "Datový inženýr",
+      "company": "Fictional Workshop 18",
+      "source": "demo",
+      "location": "Praha",
+      "description": "Spravujte datové toky pro logistiku.\nPožadujeme: SQL, Airflow, Databricks\nVýhodou: Python",
+      "url": "https://example.invalid/jobs/evaluation-18"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "Python",
+      "PyTorch",
+      "Machine learning"
+    ],
+    "preferred": [
+      "Docker"
+    ],
+    "job": {
+      "title": "Associate AI Engineer",
+      "company": "Fictional Workshop 19",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Maintain a small model evaluation service.\nRequirements: Python, PyTorch, Machine learning\nPreferred: Docker",
+      "url": "https://example.invalid/jobs/evaluation-19"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "Python",
+      "scikit-learn",
+      "Machine learning"
+    ],
+    "preferred": [
+      "SQL"
+    ],
+    "job": {
+      "title": "Junior Machine Learning Engineer",
+      "company": "Fictional Workshop 20",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Prototype a classification benchmark.\nRequirements: Python, scikit-learn, Machine learning\nPreferred: SQL",
+      "url": "https://example.invalid/jobs/evaluation-20"
+    }
+  },
+  {
+    "label": "poor",
+    "required": [
+      "PyTorch",
+      "TensorFlow",
+      "Machine learning"
+    ],
+    "preferred": [
+      "AWS"
+    ],
+    "job": {
+      "title": "AI Engineer - Research",
+      "company": "Fictional Workshop 21",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Lead recurring model-training runs.\nRequirements: PyTorch, TensorFlow, Machine learning\nPreferred: AWS",
+      "url": "https://example.invalid/jobs/evaluation-21"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "Python",
+      "SQL"
+    ],
+    "preferred": [
+      "Excel"
+    ],
+    "job": {
+      "title": "Automation Engineer - Reporting",
+      "company": "Fictional Workshop 22",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Automate data quality checks and alerting.\nRequirements: Python, SQL\nPreferred: Excel",
+      "url": "https://example.invalid/jobs/evaluation-22"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "Python",
+      "SQL",
+      "REST"
+    ],
+    "preferred": [
+      "Git"
+    ],
+    "job": {
+      "title": "Automation Engineer - Integrations",
+      "company": "Fictional Workshop 23",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Build small integrations for scheduling teams.\nRequirements: Python, SQL, REST\nPreferred: Git",
+      "url": "https://example.invalid/jobs/evaluation-23"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "Power Apps",
+      "Power Automate",
+      "SQL"
+    ],
+    "preferred": [
+      "Power BI"
+    ],
+    "job": {
+      "title": "Power Platform Developer",
+      "company": "Fictional Workshop 24",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Maintain staff approval workflows.\nRequirements: Power Apps, Power Automate, SQL\nPreferred: Power BI",
+      "url": "https://example.invalid/jobs/evaluation-24"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "Power BI",
+      "SQL",
+      "Power Apps"
+    ],
+    "preferred": [
+      "Excel"
+    ],
+    "job": {
+      "title": "Vývojář Power Platform",
+      "company": "Fictional Workshop 25",
+      "source": "demo",
+      "location": "Praha",
+      "description": "Digitalizujte interní žádanky.\nPožadujeme: Power BI, SQL, Power Apps\nVýhodou: Excel",
+      "url": "https://example.invalid/jobs/evaluation-25"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "Python",
+      "SQL"
+    ],
+    "preferred": [
+      "Excel"
+    ],
+    "job": {
+      "title": "Python Developer - Data Tools",
+      "company": "Fictional Workshop 26",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Improve command-line reporting tools.\nRequirements: Python, SQL\nPreferred: Excel",
+      "url": "https://example.invalid/jobs/evaluation-26"
+    }
+  },
+  {
+    "label": "stretch",
+    "required": [
+      "Python",
+      "Docker",
+      "Kubernetes"
+    ],
+    "preferred": [
+      "Git"
+    ],
+    "job": {
+      "title": "Python Developer - Platform",
+      "company": "Fictional Workshop 27",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Support container deployments.\nRequirements: Python, Docker, Kubernetes\nPreferred: Git",
+      "url": "https://example.invalid/jobs/evaluation-27"
+    }
+  },
+  {
+    "label": "strong",
+    "required": [
+      "SQL",
+      "Excel"
+    ],
+    "preferred": [
+      "Power BI"
+    ],
+    "job": {
+      "title": "Technical Business Analyst",
+      "company": "Fictional Workshop 28",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Translate reporting requirements into acceptance criteria.\nRequirements: SQL, Excel\nPreferred: Power BI",
+      "url": "https://example.invalid/jobs/evaluation-28"
+    }
+  },
+  {
+    "label": "reasonable",
+    "required": [
+      "Excel",
+      "SQL",
+      "SAP"
+    ],
+    "preferred": [
+      "Power BI"
+    ],
+    "job": {
+      "title": "Technical Business Analyst - ERP",
+      "company": "Fictional Workshop 29",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Map order-to-cash data and process changes.\nRequirements: Excel, SQL, SAP\nPreferred: Power BI",
+      "url": "https://example.invalid/jobs/evaluation-29"
+    }
+  },
+  {
+    "label": "poor",
+    "required": [
+      "C++",
+      "Linux"
+    ],
+    "preferred": [
+      "Bash"
+    ],
+    "job": {
+      "title": "Embedded Systems Lead",
+      "company": "Fictional Workshop 30",
+      "source": "demo",
+      "location": "Prague",
+      "description": "Maintain firmware used in a laboratory setting.\nRequirements: C++, Linux\nPreferred: Bash",
+      "url": "https://example.invalid/jobs/evaluation-30"
+    }
+  }
+]

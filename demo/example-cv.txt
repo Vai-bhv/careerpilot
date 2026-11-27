@@ -1,0 +1,19 @@
+Alex Example
+alex@example.invalid | Prague | GitHub (https://github.com/example)
+Profile
+Develops Power BI reporting with SQL and DAX.
+Experience
+Lantern Transit | Reporting Assistant (part-time) | 2024 – present
+• Built SQL views and Power BI reports for service planning.
+• Maintained 12 DAX measures in the reporting model.
+Fable Studio | Data Intern (part-time) | 2025 – present
+• Built a Python validator for incoming timetable records.
+Projects
+Timetable Explorer (https://github.com/example/timetable-explorer)
+• Published a Python tool for exploring fictional transit schedules.
+Report Checks (https://github.com/example/report-checks)
+• Wrote SQL checks for an example analytics dataset.
+Skills
+Power BI, SQL, DAX, Python, Excel
+Education
+Example Institute | Applied Computing, studies in progress | 2024 – present
