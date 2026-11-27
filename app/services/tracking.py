@@ -80,7 +80,8 @@ def confirm(s, job, data):
     app = application(s, job)
     if app and app.submitted:
         raise Problem("Submission already recorded", 409)
-    check_doc(s, data.cv_id, job, "cv")
+    if data.cv_id is not None:
+        check_doc(s, data.cv_id, job, "cv")
     if data.letter_id:
         check_doc(s, data.letter_id, job, "cover_letter")
     if not app:
@@ -92,6 +93,7 @@ def confirm(s, job, data):
     app.details = {
         **(app.details or {}),
         "method": data.method,
+        "existing_cv": data.existing_cv,
         "company_at_submission": job.company,
         "title_at_submission": job.title,
     }
@@ -100,6 +102,7 @@ def confirm(s, job, data):
         "application.confirm",
         f"job/{job.id}",
         cv=data.cv_id,
+        existing_cv=data.existing_cv,
         letter=data.letter_id,
         method=data.method,
     )

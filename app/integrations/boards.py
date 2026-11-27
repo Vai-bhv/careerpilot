@@ -148,6 +148,8 @@ def sync_board(s, b, client=None):
         if owned:
             client.close()
     row.state = {
+        "enabled": old.get("enabled", True),
+        "last_success": old.get("last_success") if failure else current.isoformat(),
         "board": b.model_dump(),
         "count": valid,
         "invalid": invalid,

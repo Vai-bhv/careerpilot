@@ -47,3 +47,34 @@ def test_import_rejects_invalid_records(workspace):
         "/v1/jobs", json={**data, "url": "https://user:private-value@example.invalid/"}
     )
     assert response.status_code == 422 and "private-value" not in response.text
+
+
+def test_batch_approval_and_existing_cv(workspace):
+    from app.schemas import EvidenceData
+
+    c = TestClient(app, headers={"Authorization": "Bearer synthetic-local-test-token"})
+    claim = EvidenceData(
+        kind="identity", owner="Candidate", claim="Synthetic Name", source="Fixture"
+    )
+    created = c.post("/v1/evidence", json=claim.model_dump()).json()
+    key = str(created["id"])
+    url = "/v1/evidence/approve-selected"
+    assert (
+        c.post(
+            url, json={"confirmed": True, "claims": {key: {**claim.model_dump(), "claim": "Stale"}}}
+        ).status_code
+        == 409
+    )
+    assert c.post(url, json={"confirmed": True, "claims": {key: claim.model_dump()}}).json() == {
+        "approved": 1
+    }
+    job = c.post(
+        "/v1/jobs",
+        json={"title": "Analyst", "company": "Example", "description": "Required: SQL and Excel."},
+    ).json()
+    endpoint = f"/v1/jobs/{job['id']}/confirm"
+    payload = {"confirmed": True, "existing_cv": "Analytics rev 2.pdf"}
+    record = c.post(endpoint, json=payload)
+    assert record.status_code == 200
+    assert record.json()["details"]["existing_cv"] == payload["existing_cv"]
+    assert c.post(endpoint, json=payload).status_code == 409

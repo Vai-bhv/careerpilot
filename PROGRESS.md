@@ -57,3 +57,9 @@ For a portfolio release, rebuild and rescan when Debian publishes package update
 The audit found and corrected an evidence review inconsistency involving normalized employer names. The expanded 30-case synthetic matching evaluation agreed with 26 fit labels and identified all 81 required and 26 labelled preferred skill occurrences. See [the audit](docs/IMPLEMENTATION_AUDIT.md) and [the evaluation](docs/architecture/evaluation.md).
 
 The publication regression run passed 25 tests in 16.77 seconds on the local suite with disposable PostgreSQL. Trivy found no secrets or high/critical dependency findings in the public working tree at the configured severity. The local image rescan found 89 high and one critical Debian finding, with zero listed fixed versions. Publish development source only.
+
+## Operational readiness
+
+The evidence screen now groups claims by owner and type, shows source references and flags, and indicates the minimum missing evidence for CV generation. Explicit batch approval checks each submitted snapshot and rejects stale, conflicting and restricted records. Applications made with existing CVs can be recorded by filename or version. Saved board configurations support enabling scheduled reads and retaining the last successful sync.
+
+The local PostgreSQL regression suite passed 26 tests. Ruff and the public-file privacy check passed. The matching-only evaluation reproduced 26 of 30 fit bands, 81 required skills and 26 labelled preferred skills. The native API readiness check passed. Live Yahoo and model verification still require local configuration. The container image has no runtime changes in this increment. The last measured image scan reported one critical and 89 high Debian findings.

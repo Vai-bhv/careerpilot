@@ -130,3 +130,9 @@ The refreshed local image has an open security release gate. Trivy reported one 
 ## Roadmap
 
 Priorities after the native acceptance workflow are candidate review of imported evidence, evaluation on more Czech and English descriptions, opted-in live Yahoo and employer-board checks, and richer local extraction of alternative requirements, language levels and PDF layouts. Release criteria and remaining integration checks are tracked in [PROGRESS.md](PROGRESS.md).
+
+### First personal application
+
+Open **Profile and evidence** and review the source references in the evidence table. Resolve flagged claims individually. For the remaining claims, select the exact entries under **Approve selected claims**, review their wording and confirm disclosure. Start with identity, contact information, each role or project header and its supporting bullets.
+
+Paste the job description and official link in **Job discovery**. Save the evaluation in **Job details**, then generate, inspect and approve a draft in **CV workspace**. Download PDF and DOCX from the approved version. Open the employer page from **Application tracker** and record the submission after you apply. If you already applied using another CV, choose **Existing CV** and enter its filename or version.

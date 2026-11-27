@@ -39,6 +39,7 @@ from app.schemas import (
     ApplicationView,
     Confirm,
     DocumentView,
+    EvidenceApproval,
     EvidenceData,
     EvidenceView,
     Generate,
@@ -170,6 +171,22 @@ def add_evidence(data: EvidenceData, s: DB) -> dict:
     s.add(row)
     s.flush()
     return public(review(s, row, data))
+
+
+@router.post("/evidence/approve-selected")
+def approve_selected(data: EvidenceApproval, s: DB) -> dict:
+    rows = []
+    for key, expected in sorted(data.claims.items()):
+        row = get(s, Evidence, key, lock=True)
+        current = EvidenceData(
+            **{field: getattr(row, field) for field in EvidenceData.model_fields}
+        )
+        if current != expected or row.conflict or row.status in {"confidential", "not_approved"}:
+            raise Problem(f"Evidence #{key} changed or requires individual review", 409)
+        rows.append((row, current))
+    for row, current in rows:
+        review(s, row, current.model_copy(update={"status": "user_confirmed", "external": True}))
+    return {"approved": len(rows)}
 
 
 @router.put("/evidence/{key}", response_model=EvidenceView)
@@ -408,6 +425,13 @@ def skills_report(s: DB, shortlisted: bool = False, role: str = "") -> dict:
 @router.get("/integrations")
 def integrations(s: DB) -> list[dict]:
     return [public(r) for r in s.scalars(select(Integration))]
+
+
+@router.put("/integrations/board")
+def configure_board(data: Board, enabled: bool, s: DB) -> dict:
+    row = state(s, f"{data.platform}/{data.slug}")
+    row.state = {**row.state, "board": data.model_dump(), "enabled": enabled}
+    return row.state
 
 
 @router.post("/integrations/board")

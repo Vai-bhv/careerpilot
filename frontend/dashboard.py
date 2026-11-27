@@ -9,7 +9,7 @@ import httpx
 import streamlit as st
 
 from app.client import WorkspaceAPI
-from app.schemas import VARIANTS, Kind, Stage, Status
+from app.schemas import VARIANTS, EvidenceData, Kind, Stage, Status
 
 st.set_page_config(
     page_title="CareerPilot", page_icon="◈", layout="wide", initial_sidebar_state="expanded"
@@ -243,6 +243,74 @@ def evidence_workspace():
     review_tab, add, templates = st.tabs(["Review evidence", "Add a claim", "Import baselines"])
     rows = call("GET", "/evidence", params={"limit": 500})
     with review_tab:
+        approved = [
+            e
+            for e in rows
+            if e["external"]
+            and not e["conflict"]
+            and e["status"] in {"user_confirmed", "source_supported"}
+        ]
+        pending = [
+            e
+            for e in rows
+            if e not in approved and e["status"] not in {"confidential", "not_approved"}
+        ]
+        st.write(
+            f"{len(pending)} pending · {sum(e['conflict'] for e in rows)} flagged · {len(approved)} cleared for disclosure"
+        )
+        if not any(e["kind"] == "identity" for e in approved):
+            st.warning("An approved identity claim is required to generate a CV.")
+        approved_keys = {(e["kind"], e["owner"]) for e in approved}
+        has_supporting_bullet = any(
+            (header, owner) in approved_keys and (bullet, owner) in approved_keys
+            for header, bullet in (("employment", "achievement"), ("project", "project_bullet"))
+            for kind, owner in approved_keys
+            if kind == header
+        )
+        if not has_supporting_bullet:
+            st.warning(
+                "Approve an employment or project header and a supporting bullet for the same owner."
+            )
+        with st.expander("All evidence and source references", expanded=True):
+            st.dataframe(
+                [
+                    {
+                        k: e[k]
+                        for k in ("owner", "kind", "id", "claim", "source", "status", "conflict")
+                    }
+                    for e in sorted(rows, key=lambda e: (e["owner"].casefold(), e["kind"], e["id"]))
+                ],
+                hide_index=True,
+            )
+        with st.expander("Approve selected claims"):
+            candidates = {e["id"]: e for e in pending if not e["conflict"]}
+            selected = st.multiselect(
+                "Claims to approve",
+                sorted(candidates),
+                format_func=lambda key: (
+                    f"#{key} · {candidates[key]['owner']} · {candidates[key]['kind']}"
+                ),
+            )
+            for key in selected:
+                e = candidates[key]
+                st.text(
+                    f"#{key} · {e['owner']} · {e['source']}\n{e['claim']}\n{e['link']}\nTechnologies: {', '.join(e['technologies'])}\nMetric: {e['metric']}"
+                )
+            agreed = st.checkbox(
+                "I verified each selected claim and approve it for external disclosure",
+                key="batch_agreement",
+            )
+            if st.button("Approve selected claims", disabled=not selected or not agreed):
+                claims = {
+                    key: {field: candidates[key][field] for field in EvidenceData.model_fields}
+                    for key in selected
+                }
+                call(
+                    "POST",
+                    "/evidence/approve-selected",
+                    json={"confirmed": agreed, "claims": claims},
+                )
+                refresh("Selected evidence approved.")
         st.caption(
             "Review each source, correct the wording and explicitly allow external use before generating a CV."
         )
@@ -497,7 +565,7 @@ def tracker():
     with st.expander("Prepare and confirm application", expanded=True):
         if prep["application_url"]:
             st.link_button("Open official application page", prep["application_url"])
-        if prep["ready"] and j["status"] in {
+        if j["status"] in {
             "discovered",
             "evaluated",
             "shortlisted",
@@ -506,7 +574,14 @@ def tracker():
             "ready_to_apply",
         }:
             cvs = [d["id"] for d in prep["documents"] if d["kind"] == "cv"]
-            cv = st.selectbox("Submitted CV version", cvs)
+            cv = st.selectbox(
+                "Submitted CV",
+                [None, *cvs],
+                format_func=lambda value: (
+                    f"CareerPilot version #{value}" if value else "Existing CV"
+                ),
+            )
+            existing = st.text_input("Existing CV filename or version") if cv is None else None
             letter = st.selectbox(
                 "Submitted cover letter",
                 [None] + [d["id"] for d in prep["documents"] if d["kind"] == "cover_letter"],
@@ -515,20 +590,27 @@ def tracker():
                 if d["id"] in {cv, letter}:
                     st.code(d["plain"], language=None)
             yes = st.checkbox(
-                f"I submitted application #{key} with CV #{cv}"
+                f"I submitted application #{key} with "
+                + (f"CV #{cv}" if cv else "the existing CV named above")
                 + (f" and letter #{letter}." if letter else ".")
             )
-            if st.button("Record confirmed submission", disabled=not yes):
+            if st.button(
+                "Record confirmed submission",
+                disabled=not yes or (cv is None and not (existing or "").strip()),
+            ):
                 call(
                     "POST",
                     f"/jobs/{key}/confirm",
-                    json={"cv_id": cv, "letter_id": letter, "confirmed": yes},
+                    json={
+                        "cv_id": cv,
+                        "existing_cv": existing,
+                        "letter_id": letter,
+                        "confirmed": yes,
+                    },
                 )
                 refresh("Submission recorded with the selected document versions.")
         else:
-            st.caption(
-                "Submission confirmation requires an open vacancy and an approved CV. Recorded submissions appear in the timeline."
-            )
+            st.caption("Recorded submissions appear in the timeline.")
     current = next(
         (a for a in call("GET", "/applications", params={"limit": 500}) if a["job_id"] == key), {}
     )
@@ -619,6 +701,15 @@ def settings():
             platform = st.selectbox("Platform", ["greenhouse", "lever", "lever-eu", "ashby"])
             slug = st.text_input("Board slug")
             company = st.text_input("Employer name")
+            enabled = st.checkbox("Enable scheduled synchronization", value=True)
+            if st.form_submit_button("Save source"):
+                call(
+                    "PUT",
+                    "/integrations/board",
+                    params={"enabled": enabled},
+                    json={"platform": platform, "slug": slug, "company": company},
+                )
+                refresh("Source configuration saved.")
             if st.form_submit_button("Synchronise board"):
                 st.json(
                     call(

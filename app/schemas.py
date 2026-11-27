@@ -247,11 +247,23 @@ class Generate(Input):
         return self
 
 
+class EvidenceApproval(Input):
+    confirmed: Literal[True]
+    claims: dict[int, EvidenceData] = Field(min_length=1, max_length=100)
+
+
 class Confirm(Input):
-    cv_id: int
+    cv_id: int | None = None
+    existing_cv: Text | None = None
     letter_id: int | None = None
     confirmed: Literal[True]
     method: Text = "official application page"
+
+    @model_validator(mode="after")
+    def require_cv_reference(self):
+        if (self.cv_id is None) == (self.existing_cv is None):
+            raise ValueError("Choose one generated CV or provide the existing CV filename")
+        return self
 
 
 class Tracking(Input):

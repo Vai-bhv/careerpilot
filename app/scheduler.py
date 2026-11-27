@@ -36,7 +36,7 @@ def perform(s, name):
             "boards": [
                 sync_board(s, Board.model_validate(r.state["board"]))
                 for r in rows
-                if "board" in r.state
+                if "board" in r.state and r.state.get("enabled", True)
             ]
         }
     if name == "follow_ups":
