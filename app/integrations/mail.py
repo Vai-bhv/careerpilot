@@ -17,12 +17,19 @@ from app.schemas import safe_url
 from app.services.skills import norm
 
 PATTERNS = {
+    "reschedule": r"reschedule.{0,35}interview|interview.{0,35}reschedul|presun.{0,25}pohovor",
+    "assessment": r"technical assessment|coding assessment|take.home assignment|technicky ukol",
+    "information_request": r"additional information|additional documents|doplnujici informace",
+    "offer": r"offer of employment|pleased to offer you|pracovni nabidka pro vas",
     "rejection": r"unfortunately|not moving forward|other candidates|zamita|neuspes|nepostup",
     "interview": r"interview invitation|invite.{0,35}interview|schedule.{0,35}interview|pozvan.{0,15}pohovor",
     "confirmation": r"application (?:has been )?received|thank you for (?:applying|your application)|prijali jsme.{0,25}(?:zadost|zivotopis)",
     "job_alert": r"job alert|new jobs|new vacancies|nove nabidky|nabidky prace",
     "recruiter_reply": r"recruiter|recruitment team|talent acquisition|personalista",
 }
+
+
+MAIL_CATEGORIES = (*PATTERNS, "review", "general", "unrelated")
 
 
 def parse_mail(raw):

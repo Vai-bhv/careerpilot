@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8">
+<title>CareerPilot Thunderbird settings</title>
+<h1>CareerPilot Recruitment Inbox</h1>
+<p id="status" role="status"></p>
+<form id="settings">
+  <p><label>Pairing token <input id="token" type="password" autocomplete="off" required></label></p>
+  <p><label>Local API port <input id="port" type="number" min="1" max="65535" value="8000" required></label></p>
+  <p><label>Account <select id="account" required></select></label></p>
+  <p><label>Recruitment folder <select id="folder" required></select></label></p>
+  <p><label>Import from <input id="from" type="date" required></label></p>
+  <p><label><input id="automatic" type="checkbox"> Synchronize every 15 minutes</label></p>
+  <button>Save settings</button>
+</form>
+<p><button id="sync">Synchronize folder</button></p>
+<p>To import selected messages, use CareerPilot in the message list context menu.</p>
+<h2>Synchronization history</h2><ul id="history"></ul>
+<h2>Open an editable message in Thunderbird</h2>
+<form id="compose">
+  <p><label>Sending identity <select id="identity" required></select></label></p>
+  <p><label>Recipient <input id="recipient" type="email" required></label></p>
+  <p><label>Subject <input id="subject" required></label></p>
+  <p><label>Draft <textarea id="body" rows="8" cols="55" required></textarea></label></p>
+  <button>Open native compose</button>
+</form>
+<script src="options.js"></script>
+</html>

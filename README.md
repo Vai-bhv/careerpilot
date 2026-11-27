@@ -136,3 +136,7 @@ Priorities after the native acceptance workflow are candidate review of imported
 Open **Profile and evidence** and review the source references in the evidence table. Resolve flagged claims individually. For the remaining claims, select the exact entries under **Approve selected claims**, review their wording and confirm disclosure. Start with identity, contact information, each role or project header and its supporting bullets.
 
 Paste the job description and official link in **Job discovery**. Save the evaluation in **Job details**, then generate, inspect and approve a draft in **CV workspace**. Download PDF and DOCX from the approved version. Open the employer page from **Application tracker** and record the submission after you apply. If you already applied using another CV, choose **Existing CV** and enter its filename or version.
+
+### Thunderbird recruitment mail
+
+Use the local Thunderbird bridge to import recruitment messages from a folder you select. It uses Thunderbird’s authenticated session through documented extension APIs. Pair the extension with the restricted local API, then review imported messages in **Settings → Recruitment mail**. [Installation and pairing](docs/integrations/thunderbird.md)

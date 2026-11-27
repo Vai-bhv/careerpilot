@@ -63,6 +63,8 @@ def main():
     jobs.add_argument("file", type=Path)
     commands.add_parser("demo")
     commands.add_parser("worker")
+    bridge = commands.add_parser("thunderbird")
+    bridge.add_argument("operation", choices=["pair", "revoke"])
     retention = commands.add_parser("retention", help="Preview expired unlinked mail excerpts")
     retention.add_argument(
         "--days", type=int, default=int(os.getenv("CAREERPILOT_RETENTION_DAYS", "90"))
@@ -94,6 +96,10 @@ def main():
             parser.error("Retention must be at least one day")
         with transaction() as s:
             print(json.dumps(expire_mail(s, args.days, args.confirm)))
+    elif args.action == "thunderbird":
+        from app.integrations.thunderbird import pair
+
+        pair(args.operation)
     elif args.action == "worker":
         from app.scheduler import run
 

@@ -63,3 +63,11 @@ The publication regression run passed 25 tests in 16.77 seconds on the local sui
 The evidence screen now groups claims by owner and type, shows source references and flags, and indicates the minimum missing evidence for CV generation. Explicit batch approval checks each submitted snapshot and rejects stale, conflicting and restricted records. Applications made with existing CVs can be recorded by filename or version. Saved board configurations support enabling scheduled reads and retaining the last successful sync.
 
 The local PostgreSQL regression suite passed 26 tests. Ruff and the public-file privacy check passed. The matching-only evaluation reproduced 26 of 30 fit bands, 81 required skills and 26 labelled preferred skills. The native API readiness check passed. Live Yahoo and model verification still require local configuration. The container image has no runtime changes in this increment. The last measured image scan reported one critical and 89 high Debian findings.
+
+## Thunderbird bridge increment
+
+Added a Thunderbird 161.0 MailExtension with account/folder selection, a user-set starting date, selected-message import, opt-in incremental folder sync, redacted history and native plaintext compose. The dedicated loopback API authenticates with an independently rotatable token and limits request size. It reuses mail classification and deduplication. The fictional regression suite passed 27 tests with disposable PostgreSQL, including token scope, rotation, origin checks, size limits and duplicate handling. JavaScript syntax, Ruff and the public-file privacy check passed.
+
+Live Thunderbird access is pending explicit user permission. Native replies and attachment transfer, richer alert extraction and application matching, the dedicated AI workspace and MCP expansion remain pending. The hosted LibreOffice install now retries package downloads. The image vulnerability gate remains enabled.
+
+The rebuilt Compose stack passed the PostgreSQL, dashboard and PDF smoke test. Trivy reported zero high/critical source findings and zero secrets. The image scan remains failing with one critical and 89 high Debian findings and no fixed package versions listed by the scan.

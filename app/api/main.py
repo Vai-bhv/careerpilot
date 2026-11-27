@@ -17,7 +17,7 @@ from app.config import token
 from app.db import transaction
 from app.integrations.adviser import AISettings, interview, transferable
 from app.integrations.boards import Board, state, sync_board
-from app.integrations.mail import SUGGESTED, sync_mail
+from app.integrations.mail import MAIL_CATEGORIES, SUGGESTED, sync_mail
 from app.models import (
     Application,
     Audit,
@@ -452,6 +452,18 @@ def communications(s: DB, limit: Limit = 100, offset: Offset = 0) -> list[dict]:
     ]
 
 
+@router.put("/communications/{key}/classification")
+def classify_communication(key: int, category: str, s: DB) -> dict:
+    if category not in MAIL_CATEGORIES:
+        raise Problem("Unknown recruitment classification")
+    item = get(s, Mail, key, lock=True)
+    previous = item.category
+    item.category = category
+    item.confidence = 1.0
+    audit(s, "mail.classification_corrected", item.id, previous=previous, category=category)
+    return {"category": category}
+
+
 @router.put("/communications/{key}/job/{job_id}")
 def associate(key: int, job_id: int, s: DB) -> dict:
     m = get(s, Mail, key)
@@ -531,3 +543,32 @@ def save_ai_settings(data: AISettings, s: DB) -> dict:
 
 
 app.include_router(router)
+
+
+@app.get("/thunderbird/status")
+def thunderbird_status(request: Request):
+    from app.integrations.thunderbird import authorize
+
+    authorize(request.headers.get("authorization", ""), request.headers.get("origin"))
+    return {"status": "paired"}
+
+
+@app.post("/thunderbird/messages")
+async def thunderbird_message(request: Request):
+    from starlette.concurrency import run_in_threadpool
+
+    from app.integrations.thunderbird import MAX_REQUEST, authorize, import_payload
+
+    authorize(request.headers.get("authorization", ""), request.headers.get("origin"))
+    data = bytearray()
+    async for chunk in request.stream():
+        if len(data) + len(chunk) > MAX_REQUEST:
+            raise Problem("Message exceeds the import limit", 413)
+        data.extend(chunk)
+
+    def store():
+        with transaction() as s:
+            s.execute(update(Profile).where(Profile.id == 1).values(id=1))
+            return import_payload(s, data)
+
+    return await run_in_threadpool(store)

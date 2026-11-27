@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "CareerPilot Recruitment Inbox",
+  "version": "0.1.0",
+  "browser_specific_settings": {
+    "gecko": {"id": "careerpilot-local@example.invalid", "strict_min_version": "161.0"}
+  },
+  "permissions": ["accountsRead", "messagesRead", "storage", "alarms", "compose", "menus"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": {"scripts": ["background.js"]},
+  "options_ui": {"page": "options.html", "open_in_tab": true},
+  "action": {"default_title": "CareerPilot"}
+}
